@@ -1,6 +1,11 @@
-#include "protocol2.h"
+#include "RS485BUS.h"
 
-
+RS485BUS::RS485BUS(int _RTS_pin, long baudrate)
+{
+  RTS_pin = _RTS_pin;
+  pinMode(RTS_pin, OUTPUT);
+  Serial1.begin(baudrate);
+}
 
 void RS485BUS::printPackageBuffer()
 {
@@ -11,8 +16,6 @@ void RS485BUS::printPackageBuffer()
   }
   Serial.println("");
 }
-
-
 
 bool RS485BUS::ping(byte address)
 {
@@ -74,17 +77,9 @@ void RS485BUS::factoryReset(byte address)
   sendPacket(address, sendArray, 2);
 }
 
-
 byte RS485BUS::getTemp(byte address)
 {
   return readControlTable(address, 146, 1);
-}
-
-RS485BUS::RS485BUS(int _RTS_pin, long baudrate)
-{
-  RTS_pin = _RTS_pin;
-  pinMode(RTS_pin, OUTPUT);
-  Serial1.begin(baudrate);
 }
 
 long RS485BUS::readControlTable(byte address, unsigned int tableAddress, unsigned int tableSize)

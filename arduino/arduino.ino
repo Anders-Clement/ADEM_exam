@@ -1,4 +1,4 @@
-#include "protocol2.h"
+#include "RS485BUS.h"
 
 #define DYNAMIXEL_SERVO_BAUDRATE 1000000
 #define RTS 9
@@ -14,54 +14,16 @@ void setup()
   Serial.println("Setup");
   delay(1000);
 
+  //finds motors on the bus. if 'true' is passed, all found motors are saved to be used
   findMotors(true);
+
+  //simple functions for showcasing functionality of the implemented
   testGetTemp();
-  testPGainSetting(0);
+  //testPGainSetting(0);
+  //rebootAll();
+  //factoryResetAll();
 
-  /*
-  for(int i = 0; i < numOfMotors; i++)
-    Serial.println(bus_ptr->readControlTable(motors[i], 84, 2));
-
-  for(int i = 0; i < numOfMotors; i++)
-    bus_ptr->setPGain(motors[i], 1);
-
-  for(int i = 0; i < numOfMotors; i++)
-    Serial.println(bus_ptr->readControlTable(motors[i], 84, 2));
-
-  for(int i = 0; i < numOfMotors; i++)
-    bus_ptr->factoryReset(motors[i]);
-
-  delay(1000);
-  for(int i = 0; i < numOfMotors; i++)
-    Serial.println(bus_ptr->readControlTable(motors[i], 84, 2));
-
-  for(int i = 0; i < numOfMotors; i++)
-    bus_ptr->reboot(motors[i]);
-
-  for(int i = 0; i < numOfMotors; i++)
-    Serial.println(bus_ptr->readControlTable(motors[i], 84, 2));
-
-  for(int i = 0; i < numOfMotors; i++)
-    bus_ptr->setPGain(motors[i], 1);
-
-  for(int i = 0; i < numOfMotors; i++)
-    Serial.println(bus_ptr->readControlTable(motors[i], 84, 2));
-
-
-  for(int i = 0; i < numOfMotors; i++)
-    Serial.println(bus_ptr->getTemp(motors[i]));
-
-  for(int i = 0; i < numOfMotors; i++)
-    Serial.println(bus_ptr->readControlTable(motors[i], 65, 1));
-
-  for(int i = 0; i < numOfMotors; i++)
-    bus_ptr->setLED(motors[i], 1);
-
-  for(int i = 0; i < numOfMotors; i++)
-    Serial.println(bus_ptr->readControlTable(motors[i], 65, 1));
-    */
-
-    runTime = 0;
+  runTime = 0;
 }
 
 void loop()
@@ -78,6 +40,8 @@ void loop()
     }
   }
 }
+
+
 
 void findMotors(bool addMotors)
 {
